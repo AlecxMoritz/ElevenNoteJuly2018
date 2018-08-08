@@ -16,8 +16,7 @@ namespace Elevennote.Web.MVC.Controllers
         public ActionResult Index()
         {
 
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new NoteService(userId);
+            var service = CreateNoteService();
             var model = service.GetNotes();
 
             return View(model);
@@ -39,15 +38,20 @@ namespace Elevennote.Web.MVC.Controllers
                 return View(model);
             }
 
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new NoteService(userId);
+            var service = CreateNoteService();
 
             service.CreateNote(model);
 
-            return RedirectToAction("Index", "Note" );
+            return RedirectToAction("Index", "Note");
 
         }
 
+        private NoteService CreateNoteService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new NoteService(userId);
+            return service;
+        }
 
     }
 }
