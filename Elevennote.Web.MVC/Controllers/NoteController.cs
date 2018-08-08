@@ -68,7 +68,31 @@ namespace Elevennote.Web.MVC.Controllers
                     Content = detail.Content
                 };
 
+            return View(model);
+        }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, NoteEdit model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            if(model.NoteId != id)
+            {
+                ModelState.AddModelError("", "Id mismatched");
+                return View(model);
+            }
+
+            var service = CreateNoteService();
+
+            if (service.UpdateNote(model))
+            {
+                TempData["SaveResult"] = "Your note was updated.";
+                return RedirectToAction("Index", "Note");
+            }
+
+            ModelState.AddModelError("", "Your note could not be update.");
             return View(model);
         }
 
