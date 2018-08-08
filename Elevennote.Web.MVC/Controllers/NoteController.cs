@@ -22,12 +22,10 @@ namespace Elevennote.Web.MVC.Controllers
             return View(model);
         }
 
-
         public ActionResult Create()
         {
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -45,10 +43,21 @@ namespace Elevennote.Web.MVC.Controllers
             }
 
             ModelState.AddModelError("", "Note could not be created");
+            return View(model);
+        }
+
+
+        public ActionResult Details(int id)
+        {
+            var service = CreateNoteService();
+            var model = service.GetNoteById(id);
 
             return View(model);
-
         }
+
+
+
+
 
         private NoteService CreateNoteService()
         {
@@ -56,6 +65,5 @@ namespace Elevennote.Web.MVC.Controllers
             var service = new NoteService(userId);
             return service;
         }
-
     }
 }
