@@ -15,6 +15,9 @@ namespace ElevenNote.Models
         [Display(Name = "Created At")]
         public DateTimeOffset CreatedUtc { get; set; }
 
+        [UIHint("Starred")]
+        public bool IsStarred { get; set; }
+
         public override string ToString() => Title;
     }
 }
