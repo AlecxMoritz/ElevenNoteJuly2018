@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Elevennote.Web.MVC.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,7 @@ namespace Elevennote.Web.MVC
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            WebApiConfig.Register();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
